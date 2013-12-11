@@ -3,6 +3,7 @@ package verteilt.tischteilserver;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
@@ -15,6 +16,7 @@ public class Tischteil implements TischteilInterface {
 	private Integer id;
 	private List<Stuhl> stuehle = new ArrayList<Stuhl>();
 	private List<Gabel> gabeln = new ArrayList<Gabel>();
+	private Semaphore semaphore;
 
 	public Tischteil() {
 		this.id = nextId.incrementAndGet();
@@ -26,6 +28,8 @@ public class Tischteil implements TischteilInterface {
 	 */
 	public void deckeTisch(Integer stuhlAmount, Boolean istEinzigerTeil)
 			throws RemoteException {
+		semaphore = new Semaphore(stuhlAmount, true);
+
 		if (istEinzigerTeil) {
 			Integer gabelAmount = stuhlAmount;
 			for (int i = 0; i < gabelAmount; i++) {
@@ -46,7 +50,13 @@ public class Tischteil implements TischteilInterface {
 	}
 
 	@Override
-	public Stuhl getFreienStuhl() throws RemoteException {
+	public synchronized Stuhl getFreienStuhl() throws RemoteException {
+		try {
+			semaphore.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Stuhl gefundenerStuhl = null;
 
 		for (int i = 0; i < stuehle.size(); i++) {
@@ -60,7 +70,7 @@ public class Tischteil implements TischteilInterface {
 	}
 	
 	public void aufstehen(Stuhl stuhl) {
-		
+		semaphore.release();
 		stuhl.aufstehen();
 	}
 }

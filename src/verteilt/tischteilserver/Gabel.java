@@ -22,19 +22,22 @@ public class Gabel implements Serializable {
 		LOG.fine("Gabel #" + id + " erzeugt");
 	}
 
-	public void nimm(Philosoph philosoph) {
+	public Gabel nimm(Philosoph philosoph) {
 		try {
 			mutex.acquire();
 			besitzenderPhilosoph = philosoph;
+			return this;
 			
 		} catch (InterruptedException e) {
 			LOG.info(this.toString() + " wurde abgebrochen");
+			return null;
 		}
 	}
 
 	public void legAb(Philosoph philosoph) {
 		if (besitzenderPhilosoph == philosoph) {
 			mutex.release();
+			besitzenderPhilosoph = null;
 		} else {
 			LOG.severe(this.toString() + " gehört " + philosoph.toString()
 					+ " nicht");

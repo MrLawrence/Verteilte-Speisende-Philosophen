@@ -52,8 +52,7 @@ public class Stuhl implements Serializable {
 	}
 
 	private Gabel nimmGabel(Gabel gabel) {
-		gabel.nimm(sitzenderPhilosoph);
-		return gabel;
+		return gabel.nimm(sitzenderPhilosoph);
 	}
 
 	public boolean istFrei() {
