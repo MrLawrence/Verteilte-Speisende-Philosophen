@@ -9,6 +9,10 @@ import java.util.logging.Logger;
 import verteilt.Philosoph;
 
 public class Gabel implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -880841900585741305L;
 	private final static Logger LOG = Logger.getLogger(Gabel.class.getName());
 	private static AtomicInteger nextId = new AtomicInteger();
 	private Semaphore mutex = new Semaphore(1, true);
