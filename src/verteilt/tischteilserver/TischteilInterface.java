@@ -9,5 +9,7 @@ public interface TischteilInterface extends Remote {
 	void deckeTisch(Integer stuhlAmount, Boolean istEinzigerTeil)
 			throws RemoteException;
 
-	Stuhl getStuhl() throws RemoteException;
+	Stuhl getFreienStuhl() throws RemoteException;
+	
+	void aufstehen(Stuhl stuhl) throws RemoteException;
 }

@@ -21,6 +21,9 @@ public class Tischteil implements TischteilInterface {
 		LOG.info("Tischteil #" + id + " erstellt");
 	}
 
+	/**
+	 * fügt Stuehle und Gabeln dem Tisch hinzu.
+	 */
 	public void deckeTisch(Integer stuhlAmount, Boolean istEinzigerTeil)
 			throws RemoteException {
 		if (istEinzigerTeil) {
@@ -43,7 +46,7 @@ public class Tischteil implements TischteilInterface {
 	}
 
 	@Override
-	public Stuhl getStuhl() throws RemoteException {
+	public Stuhl getFreienStuhl() throws RemoteException {
 		Stuhl gefundenerStuhl = null;
 
 		for (int i = 0; i < stuehle.size(); i++) {
@@ -54,5 +57,10 @@ public class Tischteil implements TischteilInterface {
 			}
 		}
 		return gefundenerStuhl;
+	}
+	
+	public void aufstehen(Stuhl stuhl) {
+		
+		stuhl.aufstehen();
 	}
 }

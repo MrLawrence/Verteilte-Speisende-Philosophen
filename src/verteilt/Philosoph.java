@@ -58,7 +58,7 @@ public class Philosoph implements Runnable, Serializable, PhilosophInterface {
 			LOG.info(this.toString() + " wurde beendet");
 		}
 		tisch.aufstehen(stuhl);
-		legGabelnAb();
+		legGabelnAb();		
 	}
 
 	private void nimmGabeln(Stuhl stuhl) {

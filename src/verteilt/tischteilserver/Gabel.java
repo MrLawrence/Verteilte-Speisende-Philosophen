@@ -25,10 +25,11 @@ public class Gabel implements Serializable {
 	public void nimm(Philosoph philosoph) {
 		try {
 			mutex.acquire();
+			besitzenderPhilosoph = philosoph;
+			
 		} catch (InterruptedException e) {
 			LOG.info(this.toString() + " wurde abgebrochen");
 		}
-		besitzenderPhilosoph = philosoph;
 	}
 
 	public void legAb(Philosoph philosoph) {
@@ -36,7 +37,7 @@ public class Gabel implements Serializable {
 			mutex.release();
 		} else {
 			LOG.severe(this.toString() + " gehört " + philosoph.toString()
-					+ " nicht!");
+					+ " nicht");
 		}
 	}
 
