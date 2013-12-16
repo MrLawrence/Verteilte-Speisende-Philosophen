@@ -31,7 +31,6 @@ public class TablePart implements TablePartInterface {
 			}
 		}
 		return chairFound;
-
 	}
 
 	public void notifyFreeChair() {
@@ -47,20 +46,16 @@ public class TablePart implements TablePartInterface {
 	public void addChairsandForks(Integer chairAmount, Boolean isOnlyPart)
 			throws RemoteException {
 		freeChairs = new Semaphore(chairAmount, true);
-		Integer gabelAmount;
-		if (isOnlyPart) {
-			gabelAmount = chairAmount;
-		} else {
-			gabelAmount = chairAmount - 1;
-		}
-		
+		Integer gabelAmount = chairAmount;
+
 		for (int i = 0; i < gabelAmount; i++) {
 			forks.add(new ReentrantLock());
 		}
 
 		for (int i = 0; i < chairAmount; i++) {
 			if (i == chairAmount - 1) {
-				chairs.add(new Chair(forks.get(i), (isOnlyPart) ? forks.get(0) : null));
+				chairs.add(new Chair(forks.get(i), (isOnlyPart) ? forks.get(0)
+						: null));
 			} else {
 				chairs.add(new Chair(forks.get(i), forks.get(i + 1)));
 			}

@@ -22,6 +22,10 @@ public class Coordinator {
 			registry = LocateRegistry.getRegistry("127.0.0.1");
 			table.addTablePart((TablePartInterface) registry
 					.lookup("TablePartInterface"));
+
+			registry = LocateRegistry.getRegistry("127.0.0.1", 55441);
+			table.addTablePart((TablePartInterface) registry
+					.lookup("TablePartInterface"));
 		} catch (RemoteException | NotBoundException e) {
 			LOG.severe("Couldn't connect");
 		}

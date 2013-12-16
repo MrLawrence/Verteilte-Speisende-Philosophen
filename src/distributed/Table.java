@@ -37,6 +37,8 @@ public class Table {
 	public void layTable() {
 		Integer tablePartAmount = tableParts.size();
 		Integer chairsPerTablePart = this.chairAmount / tablePartAmount;
+		LOG.info(tablePartAmount + " table parts with " + chairsPerTablePart
+				+ " chairs each");
 		for (TablePartInterface t : tableParts) {
 			try {
 				t.addChairsandForks(chairsPerTablePart, tablePartAmount == 1);

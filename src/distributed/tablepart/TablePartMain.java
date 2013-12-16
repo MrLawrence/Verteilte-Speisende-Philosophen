@@ -12,13 +12,16 @@ public class TablePartMain {
 			.getName());
 
 	public static void main(String args[]) {
-
+		Integer port = 1099;
+		if (args.length == 1) {
+			port = Integer.parseInt(args[0]);
+		}
 		TablePart tablePart = new TablePart();
 		TablePartInterface stub;
 		try {
 			stub = (TablePartInterface) UnicastRemoteObject.exportObject(
 					tablePart, 0);
-			Registry registry = LocateRegistry.getRegistry();
+			Registry registry = LocateRegistry.getRegistry(port);
 			registry.bind("TablePartInterface", stub);
 			LOG.info("Successfully registered");
 		} catch (RemoteException | AlreadyBoundException e) {
