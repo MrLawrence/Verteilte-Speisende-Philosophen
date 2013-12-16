@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 import distributed.tablepart.TablePartInterface;
 
 public class Coordinator {
-	private final static Logger LOG = Logger
-			.getLogger(Coordinator.class.getName());
+	private final static Logger LOG = Logger.getLogger(Coordinator.class
+			.getName());
 	Table table;
 	Registry registry;
 

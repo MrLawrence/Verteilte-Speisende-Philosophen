@@ -9,5 +9,6 @@ public interface TablePartInterface extends Remote {
 	
 	void standUp(Chair chair) throws RemoteException;
 	
-	void createPhilosopher(Boolean isHungry) throws RemoteException;
+	void createPhilosophers(Integer philosophersAmount,
+			Integer hungryPhilosophersAmount) throws RemoteException;
 }

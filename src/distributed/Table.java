@@ -47,12 +47,10 @@ public class Table {
 	}
 
 	public void createPhilosophers(Integer philosophersAmount) {
-		for (int i = 0; i < philosophersAmount; i++) {
-			try {
-				tableParts.get(0).createPhilosopher(false);
-			} catch (RemoteException e) {
-				LOG.severe("Couldn't connect");
-			}
+		try {
+			tableParts.get(0).createPhilosophers(philosophersAmount, 0);
+		} catch (RemoteException e) {
+			LOG.severe("Couldn't connect");
 		}
 	}
 }

@@ -34,22 +34,6 @@ public class TablePart implements TablePartInterface {
 
 	}
 
-	private void addChairsandForks(Integer chairAmount) {
-		Integer gabelAmount = chairAmount;
-
-		for (int i = 0; i < gabelAmount; i++) {
-			forks.add(new ReentrantLock(true));
-		}
-
-		for (int i = 0; i < chairAmount; i++) {
-			if (i == chairAmount - 1) {
-				chairs.add(new Chair(forks.get(i), forks.get(0)));
-			} else {
-				chairs.add(new Chair(forks.get(i), forks.get(i + 1)));
-			}
-		}
-	}
-
 	public void notifyFreeChair() {
 		freeChairs.release();
 	}
@@ -63,24 +47,24 @@ public class TablePart implements TablePartInterface {
 	public void addChairsandForks(Integer chairAmount, Boolean isOnlyPart)
 			throws RemoteException {
 		freeChairs = new Semaphore(chairAmount, true);
-
+		Integer gabelAmount;
 		if (isOnlyPart) {
-			Integer gabelAmount = chairAmount;
-			for (int i = 0; i < gabelAmount; i++) {
-				forks.add(new ReentrantLock());
-			}
-
-			for (int i = 0; i < chairAmount; i++) {
-				if (i == chairAmount - 1) {
-					chairs.add(new Chair(forks.get(i), forks.get(0)));
-				} else {
-					chairs.add(new Chair(forks.get(i), forks.get(i + 1)));
-				}
-			}
+			gabelAmount = chairAmount;
 		} else {
-			// TODO mehrere Tischteile
+			gabelAmount = chairAmount - 1;
+		}
+		
+		for (int i = 0; i < gabelAmount; i++) {
+			forks.add(new ReentrantLock());
 		}
 
+		for (int i = 0; i < chairAmount; i++) {
+			if (i == chairAmount - 1) {
+				chairs.add(new Chair(forks.get(i), (isOnlyPart) ? forks.get(0) : null));
+			} else {
+				chairs.add(new Chair(forks.get(i), forks.get(i + 1)));
+			}
+		}
 	}
 
 	@Override
@@ -90,7 +74,17 @@ public class TablePart implements TablePartInterface {
 	}
 
 	@Override
-	public void createPhilosopher(Boolean isHungry) throws RemoteException {
-		philosophers.add(new Philosopher(this, isHungry));
+	public void createPhilosophers(Integer philosophersAmount,
+			Integer hungryPhilosophersAmount) throws RemoteException {
+		for (int i = 0; i < philosophersAmount; i++) {
+			Philosopher phil = new Philosopher(this, false);
+			philosophers.add(phil);
+			new Thread(phil).start();
+		}
+		for (int i = 0; i < hungryPhilosophersAmount; i++) {
+			Philosopher phil = new Philosopher(this, true);
+			philosophers.add(phil);
+			new Thread(phil).start();
+		}
 	}
 }

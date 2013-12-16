@@ -37,13 +37,13 @@ public class Philosopher implements Runnable {
 			chair = table.getFreeChair();
 			chair.sitDown();
 			LOG.fine(this.toString() + " sits on " + chair.toString());
-			
+
 			penalty();
 			eat();
-			
+
 			chair.leave();
 			table.notifyFreeChair();
-			
+
 			think();
 			sleep();
 		}
