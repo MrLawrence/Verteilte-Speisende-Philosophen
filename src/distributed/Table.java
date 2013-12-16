@@ -15,6 +15,7 @@ public class Table {
 	private List<TablePartInterface> tableParts = new ArrayList<TablePartInterface>();
 	private Semaphore freeChairs;
 	private Integer chairAmount;
+	private Integer ids = 1;
 
 	public Table(Integer chairAmount) {
 		freeChairs = new Semaphore(chairAmount, true);
@@ -31,6 +32,11 @@ public class Table {
 	}
 
 	public void addTablePart(TablePartInterface tablePart) {
+		try {
+			tablePart.setID(ids++);
+		} catch (RemoteException e) {
+			LOG.severe("Couldn't connect");
+		}
 		tableParts.add(tablePart);
 	}
 

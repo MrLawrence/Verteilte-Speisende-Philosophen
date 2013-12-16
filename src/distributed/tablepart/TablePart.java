@@ -14,6 +14,7 @@ public class TablePart implements TablePartInterface {
 	private List<ReentrantLock> forks = new ArrayList<ReentrantLock>();
 	private List<Philosopher> philosophers = new ArrayList<Philosopher>();
 	private Semaphore freeChairs;
+	private Integer id = null;
 
 	public synchronized Chair getFreeChair() {
 		try {
@@ -81,5 +82,27 @@ public class TablePart implements TablePartInterface {
 			philosophers.add(phil);
 			new Thread(phil).start();
 		}
+	}
+	
+	@Override
+	public void setID(Integer id) throws RemoteException {
+		if(id != null) {
+			this.id = id;
+		} else {
+			LOG.warning("ID already exists!");
+		}
+	}
+	
+	@Override
+	public Integer getID() throws RemoteException {
+		return id;
+	}
+	
+	public void lockFirstFork() throws RemoteException{
+		forks.get(0).lock();
+	}
+	
+	public void releaseFirstFork() throws RemoteException {
+		forks.get(0).unlock();
 	}
 }
