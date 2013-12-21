@@ -3,6 +3,7 @@ package distributed.tablepart;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
@@ -13,29 +14,17 @@ public class TablePart implements TablePartInterface {
 	private List<Chair> chairs = new ArrayList<Chair>();
 	private List<ReentrantLock> forks = new ArrayList<ReentrantLock>();
 	private List<Philosopher> philosophers = new ArrayList<Philosopher>();
-	private Semaphore freeChairs;
+	private Random randomGenerator;
+
 	private Integer id = null;
 
-	public synchronized Chair getFreeChair() {
-		try {
-			freeChairs.acquire();
-		} catch (InterruptedException e) {
-			LOG.info(this.toString() + " was interrupted");
-		}
-		Chair chairFound = null;
+	public TablePart() {
+		randomGenerator = new Random();
 
-		for (int i = 0; i < chairs.size(); i++) {
-			Chair someChair = chairs.get(i);
-			if (someChair.empty()) {
-				chairFound = someChair;
-				break;
-			}
-		}
-		return chairFound;
 	}
 
-	public void notifyFreeChair() {
-		freeChairs.release();
+	public Chair getChair() {
+		return chairs.get(randomGenerator.nextInt(chairs.size()));
 	}
 
 	@Override
@@ -46,7 +35,6 @@ public class TablePart implements TablePartInterface {
 	@Override
 	public void addChairsandForks(Integer chairAmount, Boolean isOnlyPart)
 			throws RemoteException {
-		freeChairs = new Semaphore(chairAmount, true);
 		Integer gabelAmount = chairAmount;
 
 		for (int i = 0; i < gabelAmount; i++) {
@@ -65,7 +53,6 @@ public class TablePart implements TablePartInterface {
 
 	@Override
 	public void standUp(Chair chair) throws RemoteException {
-		freeChairs.release();
 		chair.leave();
 	}
 
@@ -83,25 +70,25 @@ public class TablePart implements TablePartInterface {
 			new Thread(phil).start();
 		}
 	}
-	
+
 	@Override
 	public void setID(Integer id) throws RemoteException {
-		if(id != null) {
+		if (id != null) {
 			this.id = id;
 		} else {
 			LOG.warning("ID already exists!");
 		}
 	}
-	
+
 	@Override
 	public Integer getID() throws RemoteException {
 		return id;
 	}
-	
-	public void lockFirstFork() throws RemoteException{
+
+	public void lockFirstFork() throws RemoteException {
 		forks.get(0).lock();
 	}
-	
+
 	public void releaseFirstFork() throws RemoteException {
 		forks.get(0).unlock();
 	}

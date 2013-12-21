@@ -34,16 +34,15 @@ public class Philosopher implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			chair = table.getFreeChair();
+			chair = table.getChair();
 			chair.sitDown();
 			LOG.fine(this.toString() + " sits on " + chair.toString());
-
+			
 			penalty();
 			eat();
-
+			
 			chair.leave();
-			table.notifyFreeChair();
-
+			
 			think();
 			sleep();
 		}

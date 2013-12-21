@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
+
 public class Chair {
 	private final static Logger LOG = Logger.getLogger(Chair.class.getName());
 	private static AtomicInteger nextId = new AtomicInteger();
