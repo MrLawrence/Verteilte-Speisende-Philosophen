@@ -11,13 +11,13 @@ public class Chair {
 	private Integer id;
 
 	private ReentrantLock chair = new ReentrantLock(true);
-	private ReentrantLock leftFork;
-	private ReentrantLock rightFork;
+//	private ReentrantLock leftFork;
+//	private ReentrantLock rightFork;
 
 	public Chair(ReentrantLock leftFork, ReentrantLock rightFork) {
 		this.id = nextId.incrementAndGet();
-		this.leftFork = leftFork;
-		this.rightFork = rightFork;
+//		this.leftFork = leftFork;
+//		this.rightFork = rightFork;
 		LOG.info("Created Chair #" + this.id);
 	}
 
@@ -26,19 +26,19 @@ public class Chair {
 	}
 
 	public void leave() {
-		leftFork.unlock();
-		rightFork.unlock();
+//		leftFork.unlock();
+//		rightFork.unlock();
 		chair.unlock();
 	}
 
 	public void acquireForks() {
-		if(this.isWeird()) {
-			rightFork.lock();
-			leftFork.lock();
-		} else {
-			leftFork.lock();
-			rightFork.lock();
-		}
+//		if(this.isWeird()) {
+//			rightFork.lock();
+//			leftFork.lock();
+//		} else {
+//			leftFork.lock();
+//			rightFork.lock();
+//		}
 	}
 	public Boolean empty() {
 		return !chair.isLocked();
