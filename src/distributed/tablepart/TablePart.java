@@ -15,7 +15,7 @@ public class TablePart implements TablePartInterface {
 	private List<ReentrantLock> forks = new ArrayList<ReentrantLock>();
 	private List<Philosopher> philosophers = new ArrayList<Philosopher>();
 	private Random randomGenerator;
-
+	private List<TablePart> otherTables = new ArrayList<TablePart>();
 	private Integer id = null;
 
 	public TablePart() {
@@ -44,11 +44,6 @@ public class TablePart implements TablePartInterface {
 				chairs.add(new Chair(forks.get(i), forks.get(i + 1)));
 			}
 		}
-	}
-
-	@Override
-	public void standUp(Chair chair) throws RemoteException {
-		chair.leave();
 	}
 
 	@Override

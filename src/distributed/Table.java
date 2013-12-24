@@ -22,15 +22,6 @@ public class Table implements TableInterface {
 		this.chairAmount = chairAmount;
 	}
 
-	public void standUp(Chair chair) {
-		freeChairs.release();
-		try {
-			tableParts.get(0).standUp(chair);
-		} catch (RemoteException e) {
-			LOG.severe("Couldn't connect");
-		}
-	}
-
 	public void register(TablePartInterface tablePart) {
 		try {
 			tablePart.setID(ids++);
@@ -38,6 +29,10 @@ public class Table implements TableInterface {
 			LOG.severe("Couldn't connect");
 		}
 		tableParts.add(tablePart);
+	}
+
+	public List<TablePartInterface> getTablePartRegistry() throws RemoteException {
+		return tableParts;
 	}
 
 	public void layTable() {
@@ -61,5 +56,5 @@ public class Table implements TableInterface {
 			LOG.severe("Couldn't connect");
 		}
 	}
-	
+
 }
