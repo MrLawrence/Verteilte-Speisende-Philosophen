@@ -28,11 +28,6 @@ public class TablePart implements TablePartInterface {
 	}
 
 	@Override
-	public String toString() {
-		return "Table with " + chairs.size() + " Chairs";
-	}
-
-	@Override
 	public void addChairsandForks(Integer chairAmount, Boolean isOnlyPart)
 			throws RemoteException {
 		Integer gabelAmount = chairAmount;
@@ -91,5 +86,10 @@ public class TablePart implements TablePartInterface {
 
 	public void releaseFirstFork() throws RemoteException {
 		forks.get(0).unlock();
+	}
+	
+	@Override
+	public String toString() {
+		return "TablePart(id=" + this.id + ")";
 	}
 }

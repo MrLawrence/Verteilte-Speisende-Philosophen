@@ -10,7 +10,7 @@ import distributed.tablepart.Chair;
 import distributed.tablepart.TablePartInterface;
 import distributed.tablepart.TablePart;
 
-public class Table {
+public class Table implements TableInterface {
 	private final static Logger LOG = Logger.getLogger(Table.class.getName());
 	private List<TablePartInterface> tableParts = new ArrayList<TablePartInterface>();
 	private Semaphore freeChairs;
@@ -31,7 +31,7 @@ public class Table {
 		}
 	}
 
-	public void addTablePart(TablePartInterface tablePart) {
+	public void register(TablePartInterface tablePart) {
 		try {
 			tablePart.setID(ids++);
 		} catch (RemoteException e) {
@@ -61,4 +61,5 @@ public class Table {
 			LOG.severe("Couldn't connect");
 		}
 	}
+	
 }

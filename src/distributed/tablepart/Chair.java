@@ -31,14 +31,6 @@ public class Chair {
 		chair.unlock();
 	}
 
-	public void acquireLeftFork() {
-		leftFork.lock();
-	}
-
-	public void acquireRightFork() {
-		rightFork.lock();
-	}
-
 	public void acquireForks() {
 		if(this.isWeird()) {
 			rightFork.lock();
