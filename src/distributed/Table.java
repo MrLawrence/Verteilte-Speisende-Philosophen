@@ -12,7 +12,7 @@ import distributed.tablepart.TablePart;
 
 public class Table implements TableInterface {
 	private final static Logger LOG = Logger.getLogger(Table.class.getName());
-	private List<TablePartInterface> tableParts = new ArrayList<TablePartInterface>();
+	private List<TablePart> tableParts = new ArrayList<TablePart>();
 	private Semaphore freeChairs;
 	private Integer chairAmount;
 	private Integer ids = 1;
@@ -31,7 +31,7 @@ public class Table implements TableInterface {
 		tableParts.add(tablePart);
 	}
 
-	public List<TablePartInterface> getTablePartRegistry() throws RemoteException {
+	public List<TablePart> getTablePartRegistry() throws RemoteException {
 		return tableParts;
 	}
 

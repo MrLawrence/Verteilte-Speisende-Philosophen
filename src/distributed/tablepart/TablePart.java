@@ -22,16 +22,20 @@ public class TablePart implements TablePartInterface, Serializable {
 	private List<Thread> philosophers = new ArrayList<Thread>();
 
 	private Random random = new Random();
-	private List<TablePart> otherTables = new ArrayList<TablePart>();
+	private List<TablePart> otherTables;
 	private TableInterface table;
 	private Integer id = null;
-	
+
 	public void connect(Integer port) throws RemoteException, NotBoundException {
 		LOG.info("Registering to Table");
 		Registry registry = LocateRegistry.getRegistry(port);
 		table = (TableInterface) registry.lookup("table");
+
 		table.register(this);
-		
+		otherTables = table.getTablePartRegistry();
+
+		LOG.info("Table parts: " + otherTables.size());
+
 	}
 
 	public Chair getChair() {

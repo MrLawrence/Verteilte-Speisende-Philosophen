@@ -8,8 +8,8 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Logger;
 
-public class TablePartMain {
-	private final static Logger LOG = Logger.getLogger(TablePartMain.class
+public class PhilosophersClient {
+	private final static Logger LOG = Logger.getLogger(PhilosophersClient.class
 			.getName());
 
 	public static void main(String args[]) {

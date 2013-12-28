@@ -7,6 +7,8 @@ import java.util.List;
 import distributed.tablepart.TablePart;
 import distributed.tablepart.TablePartInterface;
 
-public interface TableInterface extends Remote{
+public interface TableInterface extends Remote {
 	void register(TablePart tablePart) throws RemoteException;
+
+	List<TablePart> getTablePartRegistry() throws RemoteException;
 }

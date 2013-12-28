@@ -6,9 +6,9 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Logger;
 
-public class DistributedPhilosophersMain {
+public class PhilosophersServer {
 	private final static Logger LOG = Logger
-			.getLogger(DistributedPhilosophersMain.class.getName());
+			.getLogger(PhilosophersServer.class.getName());
 
 	public static void main(String args[]) throws RemoteException {
 		Integer philosophersAmount = 5;
