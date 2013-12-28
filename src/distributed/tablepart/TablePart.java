@@ -1,5 +1,6 @@
 package distributed.tablepart;
 
+import java.io.Serializable;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -10,9 +11,10 @@ import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
-import distributed.Table;
+import distributed.TableInterface;
 
-public class TablePart implements TablePartInterface {
+public class TablePart implements TablePartInterface, Serializable {
+	private static final long serialVersionUID = 1L;
 	private final static Logger LOG = Logger.getLogger(TablePart.class
 			.getName());
 	private List<Chair> chairs = new ArrayList<Chair>();
@@ -25,9 +27,11 @@ public class TablePart implements TablePartInterface {
 	private Integer id = null;
 	
 	public void connect(Integer port) throws RemoteException, NotBoundException {
+		LOG.info("Registering to Table");
 		Registry registry = LocateRegistry.getRegistry(port);
 		table = (TableInterface) registry.lookup("table");
 		table.register(this);
+		
 	}
 
 	public Chair getChair() {
@@ -52,8 +56,6 @@ public class TablePart implements TablePartInterface {
 			}
 		}
 	}
-
-
 
 	@Override
 	public void createPhilosophers(Integer philosophersAmount,

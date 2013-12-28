@@ -22,7 +22,7 @@ public class Table implements TableInterface {
 		this.chairAmount = chairAmount;
 	}
 
-	public void register(TablePartInterface tablePart) {
+	public void register(TablePart tablePart) throws RemoteException {
 		try {
 			tablePart.setID(ids++);
 		} catch (RemoteException e) {
