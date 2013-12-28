@@ -1,5 +1,6 @@
 package distributed.tablepart;
 
+import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -11,6 +12,8 @@ public interface TablePartInterface extends Remote {
 			Integer hungryPhilosophersAmount) throws RemoteException;
 
 	void setID(Integer id) throws RemoteException;
+	
+	void connect(Integer port) throws RemoteException, NotBoundException;
 
 	Integer getID() throws RemoteException;
 }
