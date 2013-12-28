@@ -3,23 +3,20 @@ package distributed;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 import java.util.logging.Logger;
+import java.rmi.server.UnicastRemoteObject;
 
-import distributed.tablepart.Chair;
 import distributed.tablepart.TablePartInterface;
 import distributed.tablepart.TablePart;
 
 public class Table implements TableInterface {
 	private final static Logger LOG = Logger.getLogger(Table.class.getName());
 	private List<TablePart> tableParts = new ArrayList<TablePart>();
-	private Semaphore freeChairs;
 	private Integer chairAmount;
 	private Integer ids = 1;
 
-	public Table(Integer chairAmount) {
-		freeChairs = new Semaphore(chairAmount, true);
-		this.chairAmount = chairAmount;
+	public Table(Integer chairAmount) throws RemoteException {
+
 	}
 
 	public void register(TablePart tablePart) throws RemoteException {

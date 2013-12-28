@@ -26,16 +26,19 @@ public class TablePart implements TablePartInterface, Serializable {
 	private TableInterface table;
 	private Integer id = null;
 
-	public void connect(Integer port) throws RemoteException, NotBoundException {
-		LOG.info("Registering to Table");
-		Registry registry = LocateRegistry.getRegistry(port);
-		table = (TableInterface) registry.lookup("table");
-
-		table.register(this);
-		otherTables = table.getTablePartRegistry();
+	public void connect(Integer port) {
+		Registry registry;
+		try {
+			registry = LocateRegistry.getRegistry(port);
+			table = (TableInterface) registry.lookup("table");
+			table.register(this);
+			otherTables = table.getTablePartRegistry();
+			LOG.info("Connected");
+		} catch (RemoteException | NotBoundException e) {
+			e.printStackTrace();
+		}
 
 		LOG.info("Table parts: " + otherTables.size());
-
 	}
 
 	public Chair getChair() {
