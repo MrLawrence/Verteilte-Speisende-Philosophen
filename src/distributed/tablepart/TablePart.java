@@ -74,14 +74,6 @@ public class TablePart implements TablePartInterface {
 	public Integer getID() throws RemoteException {
 		return id;
 	}
-
-	public void lockFirstFork() throws RemoteException {
-		forks.get(0).lock();
-	}
-
-	public void releaseFirstFork() throws RemoteException {
-		forks.get(0).unlock();
-	}
 	
 	@Override
 	public String toString() {

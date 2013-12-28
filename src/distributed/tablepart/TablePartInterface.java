@@ -13,8 +13,4 @@ public interface TablePartInterface extends Remote {
 	void setID(Integer id) throws RemoteException;
 
 	Integer getID() throws RemoteException;
-
-	void lockFirstFork() throws RemoteException;
-
-	void releaseFirstFork() throws RemoteException;
 }
