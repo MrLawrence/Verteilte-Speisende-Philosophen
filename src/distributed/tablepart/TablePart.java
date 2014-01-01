@@ -22,7 +22,6 @@ public class TablePart implements TablePartInterface, Serializable {
 	private List<Thread> philosophers = new ArrayList<Thread>();
 
 	private Random random = new Random();
-	private List<TablePart> otherTables;
 	private TableInterface table;
 	private Integer id = null;
 
@@ -32,12 +31,10 @@ public class TablePart implements TablePartInterface, Serializable {
 			registry = LocateRegistry.getRegistry(port);
 			table = (TableInterface) registry.lookup("table");
 			table.register(this);
-			otherTables = table.getTablePartRegistry();
 			LOG.info("Connected");
 		} catch (RemoteException | NotBoundException e) {
 			e.printStackTrace();
 		}
-		LOG.info("Table parts: " + otherTables.size());
 	}
 
 	public Chair getChair() {

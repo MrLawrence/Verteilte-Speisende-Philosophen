@@ -10,5 +10,5 @@ import distributed.tablepart.TablePartInterface;
 public interface TableInterface extends Remote {
 	void register(TablePart tablePart) throws RemoteException;
 
-	List<TablePart> getTablePartRegistry() throws RemoteException;
+	TablePart getNextTablePart(TablePart tablePart) throws RemoteException;
 }

@@ -28,10 +28,6 @@ public class Table implements TableInterface {
 		tableParts.add(tablePart);
 	}
 
-	public List<TablePart> getTablePartRegistry() throws RemoteException {
-		return tableParts;
-	}
-
 	public void layTable() throws RemoteException {
 		Integer tablePartAmount = tableParts.size();
 		Integer chairsPerTablePart = this.chairAmount / tablePartAmount;
@@ -52,6 +48,13 @@ public class Table implements TableInterface {
 		} catch (RemoteException e) {
 			LOG.severe("Couldn't connect");
 		}
+	}
+
+	@Override
+	public TablePart getNextTablePart(TablePart tablePart)
+			throws RemoteException {
+		return tableParts.get((tableParts.indexOf(tablePart) + 1)
+				% tableParts.size());
 	}
 
 }
