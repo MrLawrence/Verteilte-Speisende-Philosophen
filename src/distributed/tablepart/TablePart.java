@@ -37,7 +37,6 @@ public class TablePart implements TablePartInterface, Serializable {
 		} catch (RemoteException | NotBoundException e) {
 			e.printStackTrace();
 		}
-
 		LOG.info("Table parts: " + otherTables.size());
 	}
 

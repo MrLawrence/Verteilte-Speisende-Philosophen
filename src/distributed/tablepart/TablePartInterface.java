@@ -12,7 +12,7 @@ public interface TablePartInterface extends Remote {
 			Integer hungryPhilosophersAmount) throws RemoteException;
 
 	void setID(Integer id) throws RemoteException;
-	
+
 	void connect(Integer port) throws RemoteException, NotBoundException;
 
 	Integer getID() throws RemoteException;
