@@ -61,13 +61,10 @@ public class TablePart implements TablePartInterface, Serializable {
 	}
 
 	@Override
-	public void createPhilosophers(Integer philosophersAmount, Boolean isHungry)
-			throws RemoteException {
-		for (int i = 0; i < philosophersAmount; i++) {
-			Thread phil = new Thread(new Philosopher(this, isHungry));
-			philosophers.add(phil);
-			phil.start();
-		}
+	public void createPhilosopher(Boolean isHungry) throws RemoteException {
+		Thread phil = new Thread(new Philosopher(this, isHungry));
+		philosophers.add(phil);
+		phil.start();
 	}
 
 	@Override
@@ -91,10 +88,9 @@ public class TablePart implements TablePartInterface, Serializable {
 
 	@Override
 	public void movePhilosopher(Philosopher philosopher) throws RemoteException {
-		table.getNextTablePart(this).createPhilosophers(1, false);
+		table.getNextTablePart(this).createPhilosopher(false);
 		philosophers.remove(philosopher.getThread());
-		philosopher.stop();	
+		philosopher.stop();
 	}
-	
-	
+
 }

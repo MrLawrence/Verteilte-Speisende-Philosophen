@@ -3,6 +3,7 @@ package distributed;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -14,6 +15,7 @@ public class Table implements TableInterface {
 	private List<TablePart> tableParts = new ArrayList<TablePart>();
 	private Integer chairAmount;
 	private Integer ids = 1;
+	private Random random = new Random();
 
 	public Table(Integer chairAmount) throws RemoteException {
 		this.chairAmount = chairAmount;
@@ -38,14 +40,17 @@ public class Table implements TableInterface {
 			try {
 				t.addChairsandForks(chairsPerTablePart, tablePartAmount == 1);
 			} catch (RemoteException e) {
-				LOG.severe("Couldn't connect");
+				LOG.severe("Couldn't reach");
 			}
 		}
 	}
 
 	public void createPhilosophers(Integer philosophersAmount) {
 		try {
-			tableParts.get(0).createPhilosophers(philosophersAmount, false);
+			for (Integer i = 0; i < philosophersAmount; i++) {
+				tableParts.get(random.nextInt(tableParts.size()))
+						.createPhilosopher(false);
+			}
 		} catch (RemoteException e) {
 			LOG.severe("Couldn't connect");
 		}

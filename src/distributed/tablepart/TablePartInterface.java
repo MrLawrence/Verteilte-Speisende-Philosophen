@@ -8,14 +8,13 @@ public interface TablePartInterface extends Remote {
 	void addChairsandForks(Integer chairAmount, Boolean isOnlyPart)
 			throws RemoteException;
 
-	void createPhilosophers(Integer philosophersAmount,
-			Boolean isHungry) throws RemoteException;
+	void createPhilosopher(Boolean isHungry) throws RemoteException;
 
 	void setID(Integer id) throws RemoteException;
 
 	void connect(Integer port) throws RemoteException, NotBoundException;
 
 	Integer getID() throws RemoteException;
-	
+
 	void movePhilosopher(Philosopher philosopher) throws RemoteException;
 }
