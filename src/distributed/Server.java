@@ -7,8 +7,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Logger;
 
 public class Server {
-	private final static Logger LOG = Logger.getLogger(Server.class
-			.getName());
+	private final static Logger LOG = Logger.getLogger(Server.class.getName());
 
 	public static void main(String args[]) throws RemoteException {
 		Integer philosophersAmount = 5;
@@ -24,5 +23,6 @@ public class Server {
 
 		Registry registry = LocateRegistry.getRegistry();
 		registry.rebind("table", stub);
+		
 	}
 }

@@ -9,7 +9,7 @@ public interface TablePartInterface extends Remote {
 			throws RemoteException;
 
 	void createPhilosophers(Integer philosophersAmount,
-			Integer hungryPhilosophersAmount) throws RemoteException;
+			Boolean isHungry) throws RemoteException;
 
 	void setID(Integer id) throws RemoteException;
 

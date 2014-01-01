@@ -32,7 +32,7 @@ public class Table implements TableInterface {
 		return tableParts;
 	}
 
-	public void layTable() {
+	public void layTable() throws RemoteException {
 		Integer tablePartAmount = tableParts.size();
 		Integer chairsPerTablePart = this.chairAmount / tablePartAmount;
 		LOG.info(tablePartAmount + " table parts with " + chairsPerTablePart
@@ -48,7 +48,7 @@ public class Table implements TableInterface {
 
 	public void createPhilosophers(Integer philosophersAmount) {
 		try {
-			tableParts.get(0).createPhilosophers(philosophersAmount, 0);
+			tableParts.get(0).createPhilosophers(philosophersAmount, false);
 		} catch (RemoteException e) {
 			LOG.severe("Couldn't connect");
 		}
