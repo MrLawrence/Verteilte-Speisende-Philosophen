@@ -16,7 +16,7 @@ public class Table implements TableInterface {
 	private Integer ids = 1;
 
 	public Table(Integer chairAmount) throws RemoteException {
-
+		this.chairAmount = chairAmount;
 	}
 
 	public void register(TablePart tablePart) throws RemoteException {
@@ -26,6 +26,7 @@ public class Table implements TableInterface {
 			LOG.severe("Couldn't connect");
 		}
 		tableParts.add(tablePart);
+		LOG.info("New TablePart registered");
 	}
 
 	public void layTable() throws RemoteException {
