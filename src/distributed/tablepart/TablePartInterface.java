@@ -16,4 +16,6 @@ public interface TablePartInterface extends Remote {
 	void connect(Integer port) throws RemoteException, NotBoundException;
 
 	Integer getID() throws RemoteException;
+	
+	void movePhilosopher(Philosopher philosopher) throws RemoteException;
 }

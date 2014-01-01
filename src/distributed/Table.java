@@ -56,5 +56,4 @@ public class Table implements TableInterface {
 		return tableParts.get((tableParts.indexOf(tablePart) + 1)
 				% tableParts.size());
 	}
-
 }

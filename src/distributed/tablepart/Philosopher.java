@@ -115,4 +115,12 @@ public class Philosopher implements Runnable {
 		}
 		return string;
 	}
+	
+	public void stop() {
+		Thread.currentThread().stop();
+	}
+	
+	public Thread getThread() {
+		return Thread.currentThread();
+	}
 }

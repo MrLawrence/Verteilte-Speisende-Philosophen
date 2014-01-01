@@ -88,4 +88,13 @@ public class TablePart implements TablePartInterface, Serializable {
 	public String toString() {
 		return "TablePart(id=" + this.id + ")";
 	}
+
+	@Override
+	public void movePhilosopher(Philosopher philosopher) throws RemoteException {
+		table.getNextTablePart(this).createPhilosophers(1, false);
+		philosophers.remove(philosopher.getThread());
+		philosopher.stop();	
+	}
+	
+	
 }
