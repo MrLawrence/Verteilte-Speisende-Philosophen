@@ -28,7 +28,7 @@ public class Table implements TableInterface {
 			LOG.severe("Couldn't connect");
 		}
 		tableParts.add(tablePart);
-		LOG.info("New TablePart registered");
+		LOG.info("TablePart #" + tablePart.getID() +  " registered");
 	}
 
 	public void layTable() throws RemoteException {

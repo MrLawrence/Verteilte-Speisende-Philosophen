@@ -1,5 +1,7 @@
 package distributed.tablepart;
 
+import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
@@ -9,7 +11,7 @@ public class Philosopher implements Runnable {
 	private static AtomicInteger nextId = new AtomicInteger();
 	private Integer id;
 
-	private TablePart table;
+	private TablePart tablePart;
 	private Chair chair;
 
 	private Integer totalMeals = 0;
@@ -28,13 +30,20 @@ public class Philosopher implements Runnable {
 		if (isHungry) {
 			sleepTime /= 2;
 		}
-		this.table = table;
+		this.tablePart = table;
 	}
 
 	@Override
 	public void run() {
 		while (true) {
-			chair = table.getChair();
+			if(tablePart.isCrowded()) {
+				try {
+					tablePart.movePhilosopher(this);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+			chair = tablePart.getChair();
 			chair.sitDown();
 			LOG.fine(this.toString() + " sits on " + chair.toString());
 			
@@ -51,7 +60,7 @@ public class Philosopher implements Runnable {
 	private void eat() {
 		chair.acquireForks();
 		try {
-			LOG.info(this.toString() + " eats on " + chair.toString());
+			LOG.fine(this.toString() + " eats on " + chair.toString());
 			Thread.sleep(mealTime);
 		} catch (InterruptedException e) {
 			LOG.info(this.toString() + " was interrupted");
@@ -75,7 +84,7 @@ public class Philosopher implements Runnable {
 		if (totalMeals % mealsBeforeSleep == 0) {
 			try {
 				Thread.sleep(sleepTime);
-				LOG.info(this.toString() + " sleeps");
+				LOG.fine(this.toString() + " sleeps");
 			} catch (InterruptedException e) {
 				LOG.info(this.toString() + " was interrupted");
 			}

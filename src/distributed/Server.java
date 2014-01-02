@@ -28,6 +28,7 @@ public class Server {
 		registry.rebind("table", stub);
 
 		while (true) {
+			System.out.println("Type 'help' for help");
 			System.out.print("> ");
 			String input = scanner.nextLine();
 			String param = input.toLowerCase();
@@ -36,11 +37,14 @@ public class Server {
 			case "lay":
 				table.layTable();
 				break;
-			case "phil":
+			case "add":
 				table.createPhilosophers(1);
 				break;
 			case "kill":
 				table.killPhilosophers(1);
+				break;
+			case "help":
+				System.out.println("First use 'lay' then 'add' and 'kill'");
 				break;
 			case "exit": {
 				scanner.close();

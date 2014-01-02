@@ -31,7 +31,7 @@ public class TablePart implements TablePartInterface, Serializable {
 			registry = LocateRegistry.getRegistry(port);
 			table = (TableInterface) registry.lookup("table");
 			table.register(this);
-			LOG.info("Connected");
+			LOG.info("Connected to table	");
 		} catch (RemoteException | NotBoundException e) {
 			e.printStackTrace();
 		}
@@ -65,11 +65,12 @@ public class TablePart implements TablePartInterface, Serializable {
 		Thread phil = new Thread(new Philosopher(this, isHungry));
 		philosophers.add(phil);
 		phil.start();
+		LOG.info("TablePart #" + id + " received a philosopher");
 	}
 
 	@Override
 	public void setID(Integer id) throws RemoteException {
-		if (id != null) {
+		if (this.id == null) {
 			this.id = id;
 		} else {
 			LOG.warning("ID already exists!");
@@ -83,14 +84,19 @@ public class TablePart implements TablePartInterface, Serializable {
 
 	@Override
 	public String toString() {
-		return "TablePart(id=" + this.id + ")";
+		return "TablePart #" + this.id;
 	}
 
 	@Override
 	public void movePhilosopher(Philosopher philosopher) throws RemoteException {
+		LOG.info("Moving philosopher...");
 		table.getNextTablePart(this).createPhilosopher(false);
 		philosophers.remove(philosopher.getThread());
 		philosopher.kill();
+	}
+	
+	public Boolean isCrowded() {
+		return chairs.size()  < philosophers.size();
 	}
 
 	@Override
