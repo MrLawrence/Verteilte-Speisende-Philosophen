@@ -90,7 +90,22 @@ public class TablePart implements TablePartInterface, Serializable {
 	public void movePhilosopher(Philosopher philosopher) throws RemoteException {
 		table.getNextTablePart(this).createPhilosopher(false);
 		philosophers.remove(philosopher.getThread());
-		philosopher.stop();
+		philosopher.kill();
 	}
 
+	@Override
+	public void killPhilosopher() throws RemoteException {
+		if (philosophers.size() > 0) {
+			Thread philosopher = philosophers.get(philosophers.size() - 1);
+			philosophers.remove(philosopher);
+			philosopher.stop();
+		} else {
+			LOG.warning("TablePart" + id + "has no Philosophers to remove!");
+		}
+	}
+
+	@Override
+	public Integer getPhilosopherAmount() throws RemoteException {
+		return philosophers.size();
+	}
 }

@@ -11,8 +11,10 @@ public interface TableInterface extends Remote {
 	void register(TablePart tablePart) throws RemoteException;
 
 	TablePart getNextTablePart(TablePart tablePart) throws RemoteException;
-	
+
 	void layTable() throws RemoteException;
-	
+
 	void createPhilosophers(Integer philosophersAmount) throws RemoteException;
+
+	void killPhilosophers(Integer philosophersAmount) throws RemoteException;
 }

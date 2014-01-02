@@ -56,6 +56,21 @@ public class Table implements TableInterface {
 		}
 	}
 
+	public void killPhilosophers(Integer philosopherAmount)
+			throws RemoteException {
+		for (Integer i = 0; i < philosopherAmount; i++) {
+			Boolean removed = false;
+			while (!removed) {
+				TablePart randomPart = tableParts.get(random.nextInt(tableParts
+						.size()));
+				if (randomPart.getPhilosopherAmount() > 0) {
+					randomPart.killPhilosopher();
+					removed = true;
+				}
+			}
+		}
+	}
+
 	@Override
 	public TablePart getNextTablePart(TablePart tablePart)
 			throws RemoteException {

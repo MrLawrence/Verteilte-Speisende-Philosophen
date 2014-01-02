@@ -39,6 +39,9 @@ public class Server {
 			case "phil":
 				table.createPhilosophers(1);
 				break;
+			case "kill":
+				table.killPhilosophers(1);
+				break;
 			case "exit": {
 				scanner.close();
 				System.exit(1);

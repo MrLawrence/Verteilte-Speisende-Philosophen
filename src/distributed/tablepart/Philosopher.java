@@ -116,7 +116,7 @@ public class Philosopher implements Runnable {
 		return string;
 	}
 	
-	public void stop() {
+	public void kill() {
 		Thread.currentThread().stop();
 	}
 	
