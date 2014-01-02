@@ -28,7 +28,7 @@ public class Table implements TableInterface {
 			LOG.severe("Couldn't connect");
 		}
 		tableParts.add(tablePart);
-		LOG.info("TablePart #" + tablePart.getID() +  " registered");
+		LOG.info("TablePart #" + tablePart.getID() + " registered");
 	}
 
 	public void layTable() throws RemoteException {
@@ -72,9 +72,15 @@ public class Table implements TableInterface {
 	}
 
 	@Override
-	public TablePart getNextTablePart(TablePart tablePart)
-			throws RemoteException {
-		return tableParts.get((tableParts.indexOf(tablePart) + 1)
-				% tableParts.size());
+	public TablePart getNextTablePart(Integer partID) throws RemoteException {
+		TablePart nextPart = null;
+		for (TablePart t : tableParts) {
+			if (t.getID().equals(partID)) {
+				nextPart = tableParts.get((tableParts.indexOf(t) + 1)
+						% tableParts.size());
+				break;
+			}
+		}
+		return nextPart;
 	}
 }

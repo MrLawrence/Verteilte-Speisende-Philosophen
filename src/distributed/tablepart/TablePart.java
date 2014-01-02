@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
+import distributed.Table;
 import distributed.TableInterface;
 
 public class TablePart implements TablePartInterface, Serializable {
@@ -31,7 +32,7 @@ public class TablePart implements TablePartInterface, Serializable {
 			registry = LocateRegistry.getRegistry(port);
 			table = (TableInterface) registry.lookup("table");
 			table.register(this);
-			LOG.info("Connected to table	");
+			LOG.info("Connected to table");
 		} catch (RemoteException | NotBoundException e) {
 			e.printStackTrace();
 		}
@@ -86,11 +87,11 @@ public class TablePart implements TablePartInterface, Serializable {
 	public String toString() {
 		return "TablePart #" + this.id;
 	}
-
 	@Override
 	public void movePhilosopher(Philosopher philosopher) throws RemoteException {
 		LOG.info("Moving philosopher...");
-		table.getNextTablePart(this).createPhilosopher(false);
+		TablePart nextTablePart = table.getNextTablePart(this.id);
+		nextTablePart.createPhilosopher(false);
 		philosophers.remove(philosopher.getThread());
 		philosopher.kill();
 	}

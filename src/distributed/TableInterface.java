@@ -10,7 +10,7 @@ import distributed.tablepart.TablePartInterface;
 public interface TableInterface extends Remote {
 	void register(TablePart tablePart) throws RemoteException;
 
-	TablePart getNextTablePart(TablePart tablePart) throws RemoteException;
+	TablePart getNextTablePart(Integer partID) throws RemoteException;
 
 	void layTable() throws RemoteException;
 
