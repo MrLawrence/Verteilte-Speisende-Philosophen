@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
-public class Philosopher implements Runnable {
+public class Philosopher implements Runnable, Serializable {
 	private final static Logger LOG = Logger.getLogger(Philosopher.class
 			.getName());
 	private static AtomicInteger nextId = new AtomicInteger();

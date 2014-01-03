@@ -72,7 +72,7 @@ public class Table implements TableInterface {
 	}
 
 	@Override
-	public TablePart getNextTablePart(Integer partID) throws RemoteException {
+	public synchronized TablePart getNextTablePart(Integer partID) throws RemoteException {
 		TablePart nextPart = null;
 		for (TablePart t : tableParts) {
 			if (t.getID().equals(partID)) {
