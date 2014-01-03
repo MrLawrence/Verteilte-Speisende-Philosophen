@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 public class Philosopher implements Runnable, Serializable {
+	private static final long serialVersionUID = -1794431714881772273L;
 	private final static Logger LOG = Logger.getLogger(Philosopher.class
 			.getName());
 	private static AtomicInteger nextId = new AtomicInteger();

@@ -6,6 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
 public class Chair implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private final static Logger LOG = Logger.getLogger(Chair.class.getName());
 	private static AtomicInteger nextId = new AtomicInteger();
 	private Integer id;
