@@ -21,6 +21,7 @@ public class TablePart implements TablePartInterface, Serializable {
 	private List<Chair> chairs = new ArrayList<Chair>();
 	private List<ReentrantLock> forks = new ArrayList<ReentrantLock>();
 	private List<Thread> philosophers = new ArrayList<Thread>();
+	private List<TablePart> otherParts = new ArrayList<TablePart>();
 
 	private Random random = new Random();
 	private TableInterface table;
@@ -70,6 +71,15 @@ public class TablePart implements TablePartInterface, Serializable {
 	}
 
 	@Override
+	public void recreatePhilosopher(Boolean isHungry, Integer id, Integer meals)
+			throws RemoteException {
+		Thread phil = new Thread(new Philosopher(this, isHungry, id, meals));
+		philosophers.add(phil);
+		phil.start();
+		LOG.info("TablePart #" + id + " received an existing philosopher");
+	}
+
+	@Override
 	public void setID(Integer id) throws RemoteException {
 		if (this.id == null) {
 			this.id = id;
@@ -87,17 +97,19 @@ public class TablePart implements TablePartInterface, Serializable {
 	public String toString() {
 		return "TablePart #" + this.id;
 	}
+
 	@Override
 	public void movePhilosopher(Philosopher philosopher) throws RemoteException {
 		LOG.info("Moving philosopher...");
-		TablePart nextTablePart = table.getNextTablePart(this.id);
-		nextTablePart.createPhilosopher(false);
+		TablePart randomTablePart = otherParts.get(random.nextInt(otherParts
+				.size()));
+		randomTablePart.recreatePhilosopher(false, philosopher.getID(), philosopher.getMeals());
 		philosophers.remove(philosopher.getThread());
 		philosopher.kill();
 	}
-	
+
 	public Boolean isCrowded() {
-		return chairs.size()  < philosophers.size();
+		return chairs.size() < philosophers.size();
 	}
 
 	@Override
@@ -114,5 +126,9 @@ public class TablePart implements TablePartInterface, Serializable {
 	@Override
 	public Integer getPhilosopherAmount() throws RemoteException {
 		return philosophers.size();
+	}
+
+	public void notifyNewPart(TablePart part) throws RemoteException {
+		otherParts.add(part);
 	}
 }

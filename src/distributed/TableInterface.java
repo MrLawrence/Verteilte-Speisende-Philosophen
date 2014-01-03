@@ -2,15 +2,10 @@ package distributed;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
-
 import distributed.tablepart.TablePart;
-import distributed.tablepart.TablePartInterface;
 
 public interface TableInterface extends Remote {
 	void register(TablePart tablePart) throws RemoteException;
-
-	TablePart getNextTablePart(Integer partID) throws RemoteException;
 
 	void layTable() throws RemoteException;
 

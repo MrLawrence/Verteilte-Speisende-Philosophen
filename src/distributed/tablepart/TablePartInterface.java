@@ -10,6 +10,9 @@ public interface TablePartInterface extends Remote {
 
 	void createPhilosopher(Boolean isHungry) throws RemoteException;
 
+	void recreatePhilosopher(Boolean isHungry, Integer id, Integer meals)
+			throws RemoteException;
+
 	void killPhilosopher() throws RemoteException;
 
 	void setID(Integer id) throws RemoteException;
@@ -19,7 +22,8 @@ public interface TablePartInterface extends Remote {
 	Integer getID() throws RemoteException;
 
 	void movePhilosopher(Philosopher philosopher) throws RemoteException;
-	
+
 	Integer getPhilosopherAmount() throws RemoteException;
-	
+
+	void notifyNewPart(TablePart part) throws RemoteException;
 }

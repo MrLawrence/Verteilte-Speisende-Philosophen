@@ -24,14 +24,24 @@ public class Philosopher implements Runnable, Serializable {
 
 	private Boolean isHungry;
 
-	public Philosopher(TablePart table, Boolean isHungry) {
+	public Philosopher(TablePart tablePart, Boolean isHungry) {
 		this.id = nextId.incrementAndGet();
 		LOG.info("Philosoph #" + id + " created");
 		this.isHungry = isHungry;
 		if (isHungry) {
 			sleepTime /= 2;
 		}
-		this.tablePart = table;
+		this.tablePart = tablePart;
+	}
+	
+	public Philosopher(TablePart tablePart, Boolean isHungry, Integer id, Integer totalMeals) {
+		this.id = id;
+		
+		this.isHungry = isHungry;
+		if (isHungry) {
+			sleepTime /= 2;
+		}
+		this.tablePart = tablePart;
 	}
 
 	@Override
@@ -132,5 +142,13 @@ public class Philosopher implements Runnable, Serializable {
 	
 	public Thread getThread() {
 		return Thread.currentThread();
+	}
+	
+	public Integer getID() {
+		return id;
+	}
+	
+	public Integer getMeals() {
+		return totalMeals;
 	}
 }

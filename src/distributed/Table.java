@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
-import java.rmi.server.UnicastRemoteObject;
-
 import distributed.tablepart.TablePartInterface;
 import distributed.tablepart.TablePart;
 
@@ -27,6 +25,11 @@ public class Table implements TableInterface {
 		} catch (RemoteException e) {
 			LOG.severe("Couldn't connect");
 		}
+		for(TablePart t : tableParts) {
+			t.notifyNewPart(tablePart);
+			tablePart.notifyNewPart(t);
+		}
+		
 		tableParts.add(tablePart);
 		LOG.info("TablePart #" + tablePart.getID() + " registered");
 	}
@@ -69,18 +72,5 @@ public class Table implements TableInterface {
 				}
 			}
 		}
-	}
-
-	@Override
-	public synchronized TablePart getNextTablePart(Integer partID) throws RemoteException {
-		TablePart nextPart = null;
-		for (TablePart t : tableParts) {
-			if (t.getID().equals(partID)) {
-				nextPart = tableParts.get((tableParts.indexOf(t) + 1)
-						% tableParts.size());
-				break;
-			}
-		}
-		return nextPart;
 	}
 }
