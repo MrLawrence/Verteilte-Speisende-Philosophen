@@ -9,7 +9,7 @@ public interface TableInterface extends Remote {
 
 	void layTable() throws RemoteException;
 
-	void createPhilosophers(Integer philosophersAmount) throws RemoteException;
+	void createPhilosophers(Integer philosophersAmount, Boolean isHungry) throws RemoteException;
 
 	void killPhilosophers(Integer philosophersAmount) throws RemoteException;
 }

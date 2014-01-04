@@ -38,8 +38,11 @@ public class Server {
 				table.layTable();
 				break;
 			case "add":
-				table.createPhilosophers(1);
+				table.createPhilosophers(1, false);
 				break;
+				
+			case "addhungry":
+				table.createPhilosophers(1, true);
 			case "kill":
 				table.killPhilosophers(1);
 				break;

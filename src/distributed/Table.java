@@ -48,11 +48,11 @@ public class Table implements TableInterface {
 		}
 	}
 
-	public void createPhilosophers(Integer philosophersAmount) {
+	public void createPhilosophers(Integer philosophersAmount, Boolean isHungry) {
 		try {
 			for (Integer i = 0; i < philosophersAmount; i++) {
 				tableParts.get(random.nextInt(tableParts.size()))
-						.createPhilosopher(false);
+						.createPhilosopher(isHungry);
 			}
 		} catch (RemoteException e) {
 			LOG.severe("Couldn't connect");
