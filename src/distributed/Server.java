@@ -47,8 +47,10 @@ public class Server {
 				table.killPhilosophers(1);
 				break;
 			case "addchair":
+				table.createChair(1);
 				break;
 			case "killchair":
+				table.killChair(1);
 				break;
 
 			case "help":

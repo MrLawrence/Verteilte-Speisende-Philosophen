@@ -26,11 +26,11 @@ public class Table implements TableInterface {
 		} catch (RemoteException e) {
 			LOG.severe("Couldn't connect");
 		}
-		for(TablePart t : tableParts) {
+		for (TablePart t : tableParts) {
 			t.notifyNewPart(tablePart);
 			tablePart.notifyNewPart(t);
 		}
-		
+
 		tableParts.add(tablePart);
 		LOG.info("TablePart #" + tablePart.getID() + " registered");
 	}
@@ -77,13 +77,28 @@ public class Table implements TableInterface {
 
 	@Override
 	public void createChair(Integer chairAmount) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		TablePart smallestTablePart = null;
+		Integer smallestChairAmount = 99999;
+		for (TablePart t : tableParts) {
+			if (t.getChairAmount() < smallestChairAmount) {
+				smallestChairAmount = t.getChairAmount();
+				smallestTablePart = t;
+			}
+		}
+
+		smallestTablePart.createChair();
 	}
 
 	@Override
 	public void killChair(Integer chairAmount) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		TablePart largestTablePart = null;
+		Integer largestChairAmount = 0;
+		for (TablePart t : tableParts) {
+			if (t.getChairAmount() > largestChairAmount) {
+				largestChairAmount = t.getChairAmount();
+				largestTablePart = t;
+			}
+		}
+		largestTablePart.killChair();
 	}
 }

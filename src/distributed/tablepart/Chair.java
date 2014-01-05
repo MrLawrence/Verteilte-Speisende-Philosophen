@@ -55,6 +55,10 @@ public class Chair implements Serializable {
 	public Boolean isWeird() {
 		return id == 1;
 	}
+	
+	public void changeRightFork(ReentrantLock fork) {
+		//this.rightFork = fork;
+	}
 
 	@Override
 	public String toString() {

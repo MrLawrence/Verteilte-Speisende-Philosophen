@@ -103,7 +103,8 @@ public class TablePart implements TablePartInterface, Serializable {
 		LOG.info("Moving philosopher...");
 		TablePart randomTablePart = otherParts.get(random.nextInt(otherParts
 				.size()));
-		randomTablePart.recreatePhilosopher(false, philosopher.getID(), philosopher.getMeals());
+		randomTablePart.recreatePhilosopher(false, philosopher.getID(),
+				philosopher.getMeals());
 		philosophers.remove(philosopher.getThread());
 		philosopher.kill();
 	}
@@ -134,13 +135,31 @@ public class TablePart implements TablePartInterface, Serializable {
 
 	@Override
 	public void createChair() throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		ReentrantLock newFork = new ReentrantLock();
+		forks.add(newFork);
+		Chair lastChair = chairs.get(chairs.size() - 1);
+		lastChair.sitDown();
+		lastChair.changeRightFork(newFork);
+		lastChair.leave();
+
+		Chair newChair = new Chair(newFork, null);
+		chairs.add(newChair);
 	}
 
 	@Override
 	public void killChair() throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		Chair lastChair = chairs.get(chairs.size() - 1);
+		ReentrantLock lastFork = forks.get(forks.size() - 1);
+		lastFork.lock();
+		forks.remove(lastFork);
+		lastFork.unlock();
+		lastChair.sitDown();
+		chairs.remove(lastChair);
+		lastChair.leave();
+	}
+
+	@Override
+	public Integer getChairAmount() throws RemoteException {
+		return chairs.size();
 	}
 }

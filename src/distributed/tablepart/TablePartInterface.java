@@ -30,4 +30,6 @@ public interface TablePartInterface extends Remote {
 	void killChair() throws RemoteException;
 
 	void notifyNewPart(TablePart part) throws RemoteException;
+	
+	Integer getChairAmount() throws RemoteException;
 }

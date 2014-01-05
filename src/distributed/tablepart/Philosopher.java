@@ -17,9 +17,9 @@ public class Philosopher implements Runnable, Serializable {
 
 	private Integer totalMeals = 0;
 	private Integer mealsBeforeSleep = 3;
-	private Integer thinkTime = 10;
-	private Integer sleepTime = 100;
-	private Integer mealTime = 2;
+	private Integer thinkTime = 100;
+	private Integer sleepTime = 1000;
+	private Integer mealTime = 20;
 	private Integer penaltyTime = 0;
 
 	private Boolean isHungry;
@@ -71,7 +71,7 @@ public class Philosopher implements Runnable, Serializable {
 	private void eat() {
 		chair.acquireForks();
 		try {
-			LOG.fine(this.toString() + " eats on " + chair.toString());
+			LOG.info(this.toString() + " eats on " + chair.toString());
 			Thread.sleep(mealTime);
 		} catch (InterruptedException e) {
 			LOG.info(this.toString() + " was interrupted");
@@ -95,7 +95,7 @@ public class Philosopher implements Runnable, Serializable {
 		if (totalMeals % mealsBeforeSleep == 0) {
 			try {
 				Thread.sleep(sleepTime);
-				LOG.fine(this.toString() + " sleeps");
+				LOG.info(this.toString() + " sleeps");
 			} catch (InterruptedException e) {
 				LOG.info(this.toString() + " was interrupted");
 			}
