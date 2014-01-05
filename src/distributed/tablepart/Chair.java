@@ -13,13 +13,13 @@ public class Chair implements Serializable {
 
 	private ReentrantLock chair = new ReentrantLock(true);
 
-	// private ReentrantLock leftFork;
-	// private ReentrantLock rightFork;
+	private ReentrantLock leftFork;
+	private ReentrantLock rightFork;
 
 	public Chair(ReentrantLock leftFork, ReentrantLock rightFork) {
 		this.id = nextId.incrementAndGet();
-		// this.leftFork = leftFork;
-		// this.rightFork = rightFork;
+		this.leftFork = leftFork;
+		this.rightFork = rightFork;
 		LOG.info("Created Chair #" + this.id);
 	}
 
@@ -28,19 +28,23 @@ public class Chair implements Serializable {
 	}
 
 	public void leave() {
-		// leftFork.unlock();
-		// rightFork.unlock();
+		if (leftFork.isLocked()) {
+			leftFork.unlock();
+		}
+		if (rightFork != null && rightFork.isLocked()) {
+			rightFork.unlock();
+		}
 		chair.unlock();
 	}
 
 	public void acquireForks() {
-		// if(this.isWeird()) {
-		// rightFork.lock();
-		// leftFork.lock();
-		// } else {
-		// leftFork.lock();
-		// rightFork.lock();
-		// }
+		if (this.isWeird()) {
+			rightFork.lock();
+			leftFork.lock();
+		} else {
+			leftFork.lock();
+			rightFork.lock();
+		}
 	}
 
 	public Boolean empty() {
@@ -55,9 +59,9 @@ public class Chair implements Serializable {
 	public Boolean isWeird() {
 		return id == 1;
 	}
-	
+
 	public void changeRightFork(ReentrantLock fork) {
-		//this.rightFork = fork;
+		this.rightFork = fork;
 	}
 
 	@Override

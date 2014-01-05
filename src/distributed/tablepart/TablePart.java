@@ -40,7 +40,14 @@ public class TablePart implements TablePartInterface, Serializable {
 	}
 
 	public Chair getChair() {
-		return chairs.get(random.nextInt(chairs.size()));
+		Integer randomPosition = random.nextInt(chairs.size() - 1);
+		
+		//Only every 2nd chair, never the last one
+		if (randomPosition % 2 != 0 || randomPosition == chairs.size() - 1) {
+			randomPosition -= 1;
+		}
+		return chairs.get(randomPosition);
+
 	}
 
 	@Override

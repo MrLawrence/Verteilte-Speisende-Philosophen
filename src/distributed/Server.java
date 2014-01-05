@@ -13,10 +13,7 @@ public class Server {
 	public static void main(String args[]) throws RemoteException {
 		Scanner scanner = new Scanner(System.in);
 
-		Integer philosophersAmount = 5;
-		Integer hungryPhilosophersAmount = 0;
-		Integer chairAmount = 6;
-		Integer runtime = 30; // in s
+		Integer chairAmount = 12;
 
 		LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 
