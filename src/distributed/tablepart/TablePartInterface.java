@@ -24,6 +24,10 @@ public interface TablePartInterface extends Remote {
 	void movePhilosopher(Philosopher philosopher) throws RemoteException;
 
 	Integer getPhilosopherAmount() throws RemoteException;
+	
+	void createChair() throws RemoteException;
+	
+	void killChair() throws RemoteException;
 
 	void notifyNewPart(TablePart part) throws RemoteException;
 }

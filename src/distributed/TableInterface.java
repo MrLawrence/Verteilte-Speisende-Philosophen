@@ -12,4 +12,8 @@ public interface TableInterface extends Remote {
 	void createPhilosophers(Integer philosophersAmount, Boolean isHungry) throws RemoteException;
 
 	void killPhilosophers(Integer philosophersAmount) throws RemoteException;
+	
+	void createChair(Integer chairAmount) throws RemoteException;
+	
+	void killChair(Integer chairAmount) throws RemoteException;
 }

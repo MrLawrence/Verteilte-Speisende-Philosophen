@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
+
 import distributed.tablepart.TablePartInterface;
 import distributed.tablepart.TablePart;
 
@@ -72,5 +73,17 @@ public class Table implements TableInterface {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void createChair(Integer chairAmount) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void killChair(Integer chairAmount) throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 }

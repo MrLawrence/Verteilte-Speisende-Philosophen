@@ -37,15 +37,20 @@ public class Server {
 			case "lay":
 				table.layTable();
 				break;
-			case "add":
+			case "addphil":
 				table.createPhilosophers(1, false);
 				break;
-				
 			case "addhungry":
 				table.createPhilosophers(1, true);
-			case "kill":
+				break;
+			case "killphil":
 				table.killPhilosophers(1);
 				break;
+			case "addchair":
+				break;
+			case "killchair":
+				break;
+
 			case "help":
 				System.out.println("First use 'lay' then 'add' and 'kill'");
 				break;

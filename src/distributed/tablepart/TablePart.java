@@ -131,4 +131,16 @@ public class TablePart implements TablePartInterface, Serializable {
 	public void notifyNewPart(TablePart part) throws RemoteException {
 		otherParts.add(part);
 	}
+
+	@Override
+	public void createChair() throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void killChair() throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
 }
