@@ -126,6 +126,7 @@ public class TablePart implements TablePartInterface, Serializable {
 			Thread philosopher = philosophers.get(philosophers.size() - 1);
 			philosophers.remove(philosopher);
 			philosopher.stop();
+			LOG.info("Killed a Philosopher successfully");
 		} else {
 			LOG.warning("TablePart" + id + "has no Philosophers to remove!");
 		}
@@ -163,6 +164,7 @@ public class TablePart implements TablePartInterface, Serializable {
 		lastChair.sitDown();
 		chairs.remove(lastChair);
 		lastChair.leave();
+		LOG.info("Removed " + lastChair.toString());
 	}
 
 	@Override

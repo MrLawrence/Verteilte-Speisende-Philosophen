@@ -51,7 +51,7 @@ public class Server {
 				break;
 
 			case "help":
-				System.out.println("First use 'lay' then 'add' and 'kill'");
+				System.out.println("lay, addphil, addhungry, killphil, addchair, killchair, help");
 				break;
 			case "exit": {
 				scanner.close();
